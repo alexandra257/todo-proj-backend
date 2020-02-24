@@ -4,6 +4,8 @@ const serverless = require('serverless-http');
 const express = require('express');
 const app = express();
 const uuidv4 = require('uuid/v4');
+var mysql = require('mysql');
+
 
 app.get('/tasks', function (req, res) {
   res.json({
