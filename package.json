@@ -1,0 +1,25 @@
+{
+  "name": "todo-proj-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "handler.js",
+  "dependencies": {
+    "mysql": "^2.18.1",
+    "uuid": "^3.4.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexandra257/todo-proj-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alexandra257/todo-proj-backend/issues"
+  },
+  "homepage": "https://github.com/alexandra257/todo-proj-backend#readme"
+}
