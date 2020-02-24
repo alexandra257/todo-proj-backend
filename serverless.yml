@@ -15,3 +15,15 @@ functions:
           path: tasks       #when someone sends a get request, trigger the tasks function
           method: get
           cors: true     #cross origin resource sharing (can this API be used from anywhere)
+      - http:
+          path: tasks/{taskID}
+          method: put
+          cors: true     
+      - http:
+          path: tasks       
+          method: post
+          cors: true     
+      - http:
+          path: tasks/{taskID}     
+          method: delete
+          cors: true     
