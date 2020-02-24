@@ -3,29 +3,29 @@
 const serverless = require('serverless-http');
 const express = require('express');
 const app = express();
-
+const uuidv4 = require('uuid/v4');
 
 app.get('/tasks', function (req, res) {
   res.json({
     tasks: {
       taskList: [
         {
-          id: '1',
+          id: uuidv4(),
           description: 'Learn serverless!',
           completed: false,
         },
         {
-          id: '2',
+          id: uuidv4(),
           description: 'Understand APIs',
           completed: false,
         },
         {
-          id: '3',
+          id: uuidv4(),
           description: 'Meditate',
           completed: false,
         },
         {
-          id: '4',
+          id: uuidv4(),
           description: 'Order a pizza',
           completed: false,
         },
