@@ -7,7 +7,30 @@ const app = express();
 
 app.get('/tasks', function (req, res) {
   res.json({
-    message: 'Your API works',
+    tasks: {
+      taskList: [
+        {
+          id: '1',
+          description: 'Learn serverless!',
+          completed: false,
+        },
+        {
+          id: '2',
+          description: 'Understand APIs',
+          completed: false,
+        },
+        {
+          id: '3',
+          description: 'Meditate',
+          completed: false,
+        },
+        {
+          id: '4',
+          description: 'Order a pizza',
+          completed: false,
+        },
+      ]
+    }
   });
 });
 

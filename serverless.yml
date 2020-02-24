@@ -9,7 +9,7 @@ provider:
   #below we're defining the function we want to deploy
 functions:
   tasks:      #function name
-    handler: handler.tasks   #handler name should be = js file name .function(in this case tasks)
+    handler: handler.tasks   #handler name should be = js file name .function(in this case tasks, which is what we've exported)
     events:
       - http:
           path: tasks       #when someone sends a get request, trigger the tasks function
