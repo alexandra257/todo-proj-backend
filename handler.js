@@ -68,7 +68,7 @@ app.post('/tasks', function (req, res) {
 
   //Take that information and pre-poulate a SQL INSERT statement
   ///Execute the statement
-  connection.query('INSERT INTO `task` (taskID, description, completed, user_id) VALUES ?, ?, 0, "7096d2b7-e612-4b44-a9e2-8e29fc9bed69"', [taskToInsert.taskID, taskToInsert.description], function (error, results, fields) {
+  connection.query('INSERT INTO `task` (taskID, description, completed, user_id) VALUES (?, ?, 0, "7096d2b7-e612-4b44-a9e2-8e29fc9bed69")', [taskToInsert.taskID, taskToInsert.description], function (error, results, fields) {
     if (error) {
       console.log("Your query had a problem with inserting a new task", error);
       res.status(500).json({ errorMessage: error });
