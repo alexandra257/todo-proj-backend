@@ -17,7 +17,7 @@ const connection = mysql.createConnection({
 
 app.get('/tasks', function (req, res) {
 
-  connection.query('INSERT INTO`task` WHERE `user_id` = "7096d2b7-e612-4b44-a9e2-8e29fc9bed69"', function (error, results, fields) {
+  connection.query('SELECT * FROM `task` WHERE `user_id` = "7096d2b7-e612-4b44-a9e2-8e29fc9bed69"', function (error, results, fields) {
     // error will be an Error if one occurred during the query
     if (error) {
       console.log("Your query had a problem with fetching the tasks", error);
@@ -68,7 +68,7 @@ app.post('/tasks', function (req, res) {
 
   //Take that information and pre-poulate a SQL INSERT statement
   ///Execute the statement
-  connection.query('INSERT INTO task SET description = ? AND user_id = "7096d2b7-e612-4b44-a9e2-8e29fc9bed69" AND taskID = ""', taskToInsert, function (error, results, fields) {
+  connection.query('INSERT INTO `task` SET description = ? AND user_id = "7096d2b7-e612-4b44-a9e2-8e29fc9bed69" AND taskID = ""', taskToInsert, function (error, results, fields) {
     if (error) {
       console.log("Your query had a problem with inserting a new task", error);
       res.status(500).json({ errorMessage: error });
@@ -76,7 +76,7 @@ app.post('/tasks', function (req, res) {
     else {
       //Return to the client information about the task that has been created
       res.json({
-        tasks: results
+        tasks: taskToInsert
       });
     }
     // results will contain the results of the query
