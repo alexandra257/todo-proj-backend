@@ -67,9 +67,10 @@ app.post('/tasks', function (req, res) {
 
 
 app.put('/tasks/:taskID', function (req, res) {
-  const taskUpdated = req.params;
+  const taskUpdated = req.params.taskID;
+
   // "This PUT edits / creates a new task if the ID doesn't exist"	  // set completed to 1 where id = id
-  connection.query('UPDATE `task` SET `completed` = ? WHERE `taskID` = ?', [true, taskUpdated.taskId],
+  connection.query('UPDATE `task` SET `completed` = ? WHERE `taskID` = ?', [true, taskUpdated],
     function (error, results, fields) {
       if (error) {
         console.error('Could not mark tasks as updated', error);
