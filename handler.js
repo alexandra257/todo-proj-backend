@@ -34,31 +34,6 @@ app.get('/tasks', function (req, res) {
   });
 });
 
-
-// const taskList = [
-//   {
-//     taskID: uuidv4(),
-//     description: 'Learn serverless!',
-//     completed: false,
-//   },
-//   {
-//     taskID: uuidv4(),
-//     description: 'Understand APIs',
-//     completed: false,
-//   },
-//   {
-//     taskID: uuidv4(),
-//     description: 'Meditate',
-//     completed: false,
-//   },
-//   {
-//     taskID: uuidv4(),
-//     description: 'Order a pizza',
-//     completed: false,
-//   }
-// ]
-
-
 //creating tasks
 app.post('/tasks', function (req, res) {
 
@@ -91,20 +66,21 @@ app.post('/tasks', function (req, res) {
 
 
 
-// app.put('/tasks/:taskID', function (req, res) {
-//   const taskUpdated = req.params;
-//   // "This PUT edits / creates a new task if the ID doesn't exist"	  // set completed to 1 where id = id
-// });
-// connection.query('UPDATE `task` SET `completed` SET ?', [true, taskUpdated.id],
-//   function (error, results, fields) {
-//     if (error) {
-//       console.error('Could not mark tasks as updated', error);
-//       res.status(500).json({ errorMessage: error });
-//     } else {
-//       res.json({ task: taskUpdated });
-//     }
-//   }
-// );
+app.put('/tasks/:taskID', function (req, res) {
+  const taskUpdated = req.params;
+  // "This PUT edits / creates a new task if the ID doesn't exist"	  // set completed to 1 where id = id
+  connection.query('UPDATE `task` SET `completed` = ? WHERE `taskID` = ?', [true, taskUpdated.taskId],
+    function (error, results, fields) {
+      if (error) {
+        console.error('Could not mark tasks as updated', error);
+        res.status(500).json({ errorMessage: error });
+      } else {
+        res.json({ task: taskUpdated });
+        console.log(taskUpdated.completed);
+      }
+    }
+  );
+});
 
 
 // Updating tasks
@@ -114,10 +90,25 @@ app.post('/tasks', function (req, res) {
 //   });
 // });
 
+
 //Deleting tasks
 app.delete('/tasks/:taskID', function (req, res) {
-  res.json({
-    message: 'Your DELETE works',
+  const taskId = req.params.taskID;
+
+  connection.query('DELETE FROM `task` WHERE `taskID` = ?', taskId, function (error, results, fields) {
+    // error will be an Error if one occurred during the query
+    if (error) {
+      console.log("Your query had a problem with DELETING the task", error);
+      res.status(500).json({ errorMessage: error });
+    }
+    else {
+      //Query worked!
+      res.json({
+        tasks: results
+      });
+    }
+    // results will contain the results of the query
+    // fields will contain information about the returned results fields (if any)
   });
 });
 
