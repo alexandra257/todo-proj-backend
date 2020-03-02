@@ -4,9 +4,11 @@ const serverless = require('serverless-http');
 const express = require('express');
 const app = express();
 app.use(express.json()); //takes JSON from the client & converts it to a JS object
-
 const uuidv4 = require('uuid/v4');
 const mysql = require('mysql');
+const cors = require('cors');
+app.use(cors());
+
 
 const connection = mysql.createConnection({
   host: process.env.DB_HOST,
@@ -66,9 +68,12 @@ app.post('/tasks', function (req, res) {
   const taskToInsert = req.body;
   taskToInsert.taskID = uuidv4();
 
+  taskToInsert.user_id = "7096d2b7-e612-4b44-a9e2-8e29fc9bed69";
+  taskToInsert.completed = 0;
+
   //Take that information and pre-poulate a SQL INSERT statement
   ///Execute the statement
-  connection.query('INSERT INTO `task` (taskID, description, completed, user_id) VALUES (?, ?, 0, "7096d2b7-e612-4b44-a9e2-8e29fc9bed69")', [taskToInsert.taskID, taskToInsert.description], function (error, results, fields) {
+  connection.query('INSERT INTO `task` SET ?', taskToInsert, function (error, results, fields) {
     if (error) {
       console.log("Your query had a problem with inserting a new task", error);
       res.status(500).json({ errorMessage: error });
@@ -76,7 +81,7 @@ app.post('/tasks', function (req, res) {
     else {
       //Return to the client information about the task that has been created
       res.json({
-        tasks: taskToInsert
+        task: taskToInsert
       });
     }
     // results will contain the results of the query
@@ -86,14 +91,28 @@ app.post('/tasks', function (req, res) {
 
 
 
+// app.put('/tasks/:taskID', function (req, res) {
+//   const taskUpdated = req.params;
+//   // "This PUT edits / creates a new task if the ID doesn't exist"	  // set completed to 1 where id = id
+// });
+// connection.query('UPDATE `task` SET `completed` SET ?', [true, taskUpdated.id],
+//   function (error, results, fields) {
+//     if (error) {
+//       console.error('Could not mark tasks as updated', error);
+//       res.status(500).json({ errorMessage: error });
+//     } else {
+//       res.json({ task: taskUpdated });
+//     }
+//   }
+// );
 
 
-//Updating tasks
-app.put('/tasks/:taskID', function (req, res) {
-  res.json({
-    message: 'Your PUT works',
-  });
-});
+// Updating tasks
+// app.put('/tasks/:taskID', function (req, res) {
+//   res.json({
+//     message: 'Your PUT works',
+//   });
+// });
 
 //Deleting tasks
 app.delete('/tasks/:taskID', function (req, res) {
