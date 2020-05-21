@@ -16,6 +16,10 @@ This project uses the following technologies:
 - AWS Lambda and API Gateway
 - AWS RDS
 
+### Database Schema
+
+<img width="471" alt="Screenshot 2020-05-11 at 16 03 31" src="https://user-images.githubusercontent.com/51163638/82533707-ba591f00-9b3b-11ea-8541-783ee00e48ed.png">
+
 
 ### Endpoints
 
